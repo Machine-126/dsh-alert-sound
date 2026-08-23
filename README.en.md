@@ -16,6 +16,7 @@ Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a ses
 - **Voice reads the detail** — with a kind set to Voice, it speaks the specific blocker (e.g. “需要审批：write；写入文件 xxx”, “需要回答：<question>”, “发生错误：<reason>”).
 - **Blocking events repeat** — approval/question keep re-alerting every N seconds until handled (configurable 关/10/20/30s); error repeats a few times.
 - **Browser system notification** — when enabled, an alert also raises a system notification (visible even when dsh is in the background).
+- **Stall detection (experimental, off by default)** — alerts when an agent shows no progress for a while; currently `updatedAt`-based and **not yet reliable**, so it is disabled by default (opt-in).
 - Settings persist to `localStorage`, surviving refresh/restart.
 
 ## Requirements
