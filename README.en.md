@@ -4,13 +4,15 @@ English | [中文](./README.md)
 
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When the session needs an **approval**, needs your **answer**, finishes a turn, or hits an **error**, the plugin plays a distinct synthesized tone and shows a toast — optionally with a **Chinese voice** utterance. Each kind has its own selectable sound/voice, enable toggle and a master volume, configured in a dedicated Settings page.
+Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a session needs an **approval**, needs your **answer**, finishes a turn, or hits an **error**, the plugin plays a distinct synthesized tone and shows a toast — optionally with a **Chinese voice** utterance. Each kind has its own selectable sound/voice, enable toggle and a master volume, configured in a dedicated Settings page.
+
+> **Note:** the plugin's on-screen UI is in Chinese (the sound names, notification kinds and settings page). English meanings are used throughout this README; the Chinese on-screen labels are shown in parentheses where relevant.
 
 - **Four notification kinds, four distinct tones** — needs approval / needs answer / output complete / error.
-- **Optional Chinese voice** — switch any kind to “语音” to hear it spoken (browser speech synthesis).
-- **Settings page** (侧栏 → 提醒音) — master volume (0–200%), per-kind enable, sound picker (叮咚/低沉/轻点/警醒/语音/静音) and a preview button.
+- **Optional Chinese voice** — switch any kind to **Voice** (语音) to hear it spoken (browser speech synthesis).
+- **Settings page** (sidebar → **提醒音 / Alerts**) — master volume (0–200%), per-kind enable, sound picker (Ding-dong 叮咚 / Low 低沉 / Tap 轻点 / Alert 警醒 / Voice 语音 / Mute 静音) and a preview button.
 - **Works in the background** — audio is unlocked on the first user gesture.
-- **Alerts across all sessions** by default — a multi-session user hears approval/answer/error/completion from any session; switch to “仅当前会话” in settings if you only care about the one you're viewing.
+- **Alerts across all sessions** by default — a multi-session user hears approval/answer/error/completion from any session; switch to **仅当前会话 (current session only)** in settings if you only care about the one you're viewing.
 - Settings persist to `localStorage`, surviving refresh/restart.
 
 ## Requirements
@@ -24,7 +26,7 @@ Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When the s
 dsh plugin --profile web add github:Machine-126/dsh-alert-sound
 ```
 
-Restart `dsh web`, then open **设置 → 提醒音** to configure. Or install a local checkout:
+Restart `dsh web`, then open **Settings → 提醒音 / Alerts** to configure. Or install a local checkout:
 
 ```sh
 dsh plugin --profile web add ./dsh-alert-sound
@@ -34,16 +36,16 @@ dsh plugin --profile web add ./dsh-alert-sound
 
 ## Usage
 
-After install, open DSH settings → **提醒音** and set the sound/voice, enable switch and volume per kind. Notifications fire automatically; nothing else to do.
+After install, open DSH **Settings → 提醒音 / Alerts** and set the sound/voice, enable switch and volume per kind. Notifications fire automatically; nothing else to do.
 
 ## Notification kinds & default sounds
 
 | Kind | Trigger | Default sound | Toast |
 |---|---|---|---|
-| 需要审批 | session `pendingInteraction === 'approval'` | 警醒 (square triple) | amber |
-| 需要回答 | session `pendingInteraction === 'question'` | 轻点 (quick taps) | purple |
-| 输出完成 | session `running` true→false | 叮咚 (ascending two-note) | green |
-| 发生错误 | a turn errors during a run | 低沉 (descending sawtooth) | red |
+| Needs approval (需要审批) | session `pendingInteraction === 'approval'` | Alert (警醒, square triple) | amber |
+| Needs answer (需要回答) | session `pendingInteraction === 'question'` | Tap (轻点, quick taps) | purple |
+| Output complete (输出完成) | session `running` true→false | Ding-dong (叮咚, ascending two-note) | green |
+| Error (发生错误) | a turn errors during a run | Low (低沉, descending sawtooth) | red |
 
 ## Settings persistence
 
