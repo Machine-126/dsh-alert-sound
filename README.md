@@ -8,6 +8,7 @@ Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When the s
 - **Optional Chinese voice** — switch any kind to “语音” to hear it spoken (browser speech synthesis).
 - **Settings page** (侧栏 → 提醒音) — master volume (0–200%), per-kind enable, sound picker (叮咚/低沉/轻点/警醒/语音/静音) and a preview button.
 - **Works in the background** — audio is unlocked on the first user gesture.
+- **Alerts across all sessions** by default — a multi-session user hears approval/answer/error/completion from any session; switch to “仅当前会话” in settings if you only care about the one you're viewing.
 - Settings persist to `localStorage`, surviving refresh/restart.
 
 ## Requirements
