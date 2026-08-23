@@ -1,0 +1,49 @@
+{
+  "name": "dsh-alert-sound",
+  "version": "0.1.0",
+  "description": "DSH web GUI notification alerts: four distinct synthesized tones + optional Chinese voice for 'needs approval', 'needs answer', 'output complete' and 'error', with a Settings section for per-type sound, enable and volume.",
+  "type": "module",
+  "main": "lib/index.mjs",
+  "exports": {
+    ".": {
+      "default": "./lib/index.mjs"
+    },
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-slots"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "react": "^18.2.0"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "notification",
+    "sound",
+    "chime",
+    "voice",
+    "web-ui"
+  ],
+  "license": "MIT"
+}
