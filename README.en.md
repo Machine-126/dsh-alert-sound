@@ -4,17 +4,18 @@ English | [中文](./README.md)
 
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a session needs an **approval**, needs your **answer**, finishes a turn, or hits an **error**, the plugin plays a distinct synthesized tone and shows a toast — optionally with a **Chinese voice** utterance. Each kind has its own selectable sound/voice, enable toggle and a master volume, configured in a dedicated Settings page.
+Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a session needs an **approval**, needs your **answer**, finishes a turn, or hits an **error**, the plugin plays a distinct synthesized tone and shows a toast — optionally with a **spoken voice** utterance. Each kind has its own selectable sound/voice, enable toggle and a master volume, configured in a dedicated Settings page. The UI and the spoken voice support both **Chinese and English** (switch in settings).
 
-> **Note:** the plugin's on-screen UI is in Chinese (the sound names, notification kinds and settings page). English meanings are used throughout this README; the Chinese on-screen labels are shown in parentheses where relevant.
+> **Note:** the plugin shipped Chinese-first; its on-screen labels (sound names, notification kinds, settings page) are localized. Use the **界面语言 / Language** picker in settings to switch between **自动 (auto) / 中文 / English** — English is used throughout this README for reference.
 
 - **Four notification kinds, four distinct tones** — needs approval / needs answer / output complete / error.
-- **Optional Chinese voice** — switch any kind to **Voice** (语音) to hear it spoken (browser speech synthesis).
+- **Optional voice** — switch any kind to **Voice** (语音) to hear it spoken (browser speech synthesis), in the selected interface language.
 - **Settings page** (sidebar → **提醒音 / Alerts**) — master volume (0–200%), per-kind enable, sound picker (Ding-dong 叮咚 / Low 低沉 / Tap 轻点 / Alert 警醒 / Voice 语音 / Mute 静音) and a preview button.
 - **Works in the background** — audio is unlocked on the first user gesture.
 - **Alerts across all sessions** by default — a multi-session user hears approval/answer/error/completion from any session; switch to **仅当前会话 (current session only)** in settings if you only care about the one you're viewing.
 - **Voice reads the detail** — with a kind set to Voice, it speaks the specific blocker (e.g. “需要审批：write；写入文件 xxx”, “需要回答：<question>”, “发生错误：<reason>”).
 - **Blocking events repeat** — approval/question keep re-alerting every N seconds until handled (configurable 关/10/20/30s); error repeats a few times.
+- **Localized (zh/en)** — the settings page, toast, per-kind/sound names and the spoken voice language all follow the **界面语言 / Language** setting.
 - **Browser system notification** — when enabled, an alert also raises a system notification (visible even when dsh is in the background).
 - **Stall detection (experimental, off by default)** — alerts when an agent shows no progress for a while; currently `updatedAt`-based and **not yet reliable**, so it is disabled by default (opt-in).
 - Settings persist to `localStorage`, surviving refresh/restart.
@@ -40,7 +41,7 @@ dsh plugin --profile web add ./dsh-alert-sound
 
 ## Usage
 
-After install, open DSH **Settings → 提醒音 / Alerts** and set the sound/voice, enable switch and volume per kind. Notifications fire automatically; nothing else to do.
+After install, open DSH **Settings → 提醒音 / Alerts** and set the sound/voice, enable switch and volume per kind; the **界面语言 / Language** picker at the top switches between **自动 (auto) / 中文 / English**. Notifications fire automatically; nothing else to do.
 
 ## Notification kinds & default sounds
 
@@ -53,7 +54,7 @@ After install, open DSH **Settings → 提醒音 / Alerts** and set the sound/vo
 
 ## Settings persistence
 
-Preferences are stored in `localStorage` under `dsh-alert-sound.v1` (volume + per-kind `{enabled, sound}`), so they survive page reloads and restarts.
+Preferences are stored in `localStorage` under `dsh-alert-sound.v1` (master volume + per-kind `{enabled, sound}` + scope/repeat/system-notification/read-aloud/stall-detection/toast/voice-rate/do-not-disturb/interface-language), so they survive page reloads and restarts.
 
 ## Privacy
 
