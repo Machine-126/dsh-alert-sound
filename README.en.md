@@ -8,7 +8,7 @@ Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a ses
 
 > **Note:** the plugin shipped Chinese-first; its on-screen labels (sound names, notification kinds, settings page) are localized. Use the **界面语言 / Language** picker in settings to switch between **自动 (auto) / 中文 / English** — English is used throughout this README for reference.
 
-> **About this project**: designed, tested and maintained by the repo owner [@Machine-126](https://github.com/Machine-126). The initial code was written with AI assistance, then reviewed and refined by hand. Issues are welcome at [the issue tracker](https://github.com/Machine-126/dsh-alert-sound/issues).
+> **About this project**: requirements and acceptance testing by the repo owner [@Machine-126](https://github.com/Machine-126); the code was developed end-to-end by **DeepSeek Harness** (an AI coding agent). Issues are welcome at [the issue tracker](https://github.com/Machine-126/dsh-alert-sound/issues).
 
 - **Four notification kinds, four distinct tones** — needs approval / needs answer / output complete / error.
 - **Optional voice** — switch any kind to **Voice** (语音) to hear it spoken (browser speech synthesis), in the selected interface language.

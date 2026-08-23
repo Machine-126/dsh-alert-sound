@@ -6,7 +6,7 @@
 
 为 **DeepSeek Harness (dsh) 网页图形界面**提供通知声音提醒。当会话需要**审批**、需要**回答**、一轮**输出完成**、或**出现错误**时，插件播放不同的提示音并弹出悬浮提示——可选**语音**朗读。每类通知可单独设置音色/语音、启用开关与总音量，都在专属的设置页里配置。界面与语音支持**中文 / English** 切换。
 
-> **关于本项目的来源**：本插件由仓库维护者 [@Machine-126](https://github.com/Machine-126) 规划设计、测试与维护；早期代码借助 AI 编程助手生成，经人工评审与多轮调优。发现 bug 欢迎提 [issue](https://github.com/Machine-126/dsh-alert-sound/issues)。
+> **关于本项目的开发**：本插件由 [@Machine-126](https://github.com/Machine-126) 提出需求与测试验收；代码开发全程由 **DeepSeek Harness**（AI 编程代理）驱动完成。发现 bug 欢迎提 [issue](https://github.com/Machine-126/dsh-alert-sound/issues)。
 
 - **四类提醒，音色各异**：需要审批 / 需要回答 / 输出完成 / 发生错误。
 - **可选语音（中/英文随界面语言）**：把某类切到“语音”，即可用浏览器语音合成朗读；朗读语言跟随“界面语言”设置（中文 `zh-CN` / English `en-US`）。
