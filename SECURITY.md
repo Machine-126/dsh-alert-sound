@@ -4,8 +4,7 @@
 
 If you find a security issue in `dsh-alert-sound`, please report it privately rather than opening a public issue.
 
-- **E-mail** the maintainer directly (replace with your contact) — `you@example.com`.
-- Or open a **private security advisory** on GitHub (Settings → Security → Report a vulnerability) if available.
+- Report it via a **private security advisory** — go to the repo's **Security** tab → **Report a vulnerability** (maintainer: [`@Machine-126`](https://github.com/Machine-126)).
 
 Please include:
 - A short description of the issue.
