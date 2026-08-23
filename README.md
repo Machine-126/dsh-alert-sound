@@ -1,72 +1,74 @@
 # dsh-alert-sound
 
+[English](./README.en.md) | 中文
+
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When the session needs an **approval**, needs your **answer**, finishes a turn, or hits an **error**, the plugin plays a distinct synthesized tone and shows a toast — optionally with a **Chinese voice** utterance. Each kind has its own selectable sound/voice, enable toggle and a master volume, configured in a dedicated Settings page.
+为 **DeepSeek Harness (dsh) 网页图形界面**提供通知声音提醒。当会话需要**审批**、需要**回答**、一轮**输出完成**、或**出现错误**时，插件播放不同的提示音并弹出悬浮提示——可选**中文语音**朗读。每类通知可单独设置音色/语音、启用开关与总音量，都在专属的设置页里配置。
 
-- **Four notification kinds, four distinct tones** — needs approval / needs answer / output complete / error.
-- **Optional Chinese voice** — switch any kind to “语音” to hear it spoken (browser speech synthesis).
-- **Settings page** (侧栏 → 提醒音) — master volume (0–200%), per-kind enable, sound picker (叮咚/低沉/轻点/警醒/语音/静音) and a preview button.
-- **Works in the background** — audio is unlocked on the first user gesture.
-- **Alerts across all sessions** by default — a multi-session user hears approval/answer/error/completion from any session; switch to “仅当前会话” in settings if you only care about the one you're viewing.
-- Settings persist to `localStorage`, surviving refresh/restart.
+- **四类提醒，音色各异**：需要审批 / 需要回答 / 输出完成 / 发生错误。
+- **可选中文语音**：把某类切到“语音”，即可用浏览器语音合成朗读（如“需要审批”）。
+- **设置页**（侧栏 → 提醒音）：总音量滑杆（0–200%）、每类启用开关、音色下拉（叮咚/低沉/轻点/警醒/语音/静音）、试听按钮。
+- **后台也能响**：首次用户手势自动解锁音频。
+- **默认对所有会话提醒**：多会话用户也能听到任何会话的审批/回答/出错/完成；可在设置切到“仅当前会话”。
+- 设置持久化到 `localStorage`，刷新/重启保留。
 
-## Requirements
+## 要求
 
-- DeepSeek Harness `web` profile (`dsh web`)
-- A browser with Web Audio (for tones); Web Speech for voice is optional and degrades gracefully
+- DeepSeek Harness `web` profile（`dsh web`）
+- 支持 Web Audio 的浏览器（播放音色）；Web Speech 用于语音，可选、缺失时自动降级
 
-## Install
+## 安装
 
 ```sh
 dsh plugin --profile web add github:Machine-126/dsh-alert-sound
 ```
 
-Restart `dsh web`, then open **设置 → 提醒音** to configure. Or install a local checkout:
+重启 `dsh web`，然后打开 **设置 → 提醒音** 配置。或安装本地目录：
 
 ```sh
 dsh plugin --profile web add ./dsh-alert-sound
 ```
 
-> This plugin is pure JavaScript and ships no build step, so a `github:` install works directly (no npm packaging or build-allowance needed).
+> 本插件是纯 JavaScript、无构建步骤，因此 `github:` 安装可直接生效（无需 npm 打包或构建授权）。
 
-## Usage
+## 使用
 
-After install, open DSH settings → **提醒音** and set the sound/voice, enable switch and volume per kind. Notifications fire automatically; nothing else to do.
+安装后，打开 DSH 设置 → **提醒音**，为每类通知设置音色/语音、启停与音量。满足条件时自动提醒，无需其它操作。
 
-## Notification kinds & default sounds
+## 通知类型与默认音色
 
-| Kind | Trigger | Default sound | Toast |
+| 类型 | 触发条件 | 默认音色 | 提示 |
 |---|---|---|---|
-| 需要审批 | session `pendingInteraction === 'approval'` | 警醒 (square triple) | amber |
-| 需要回答 | session `pendingInteraction === 'question'` | 轻点 (quick taps) | purple |
-| 输出完成 | session `running` true→false | 叮咚 (ascending two-note) | green |
-| 发生错误 | a turn errors during a run | 低沉 (descending sawtooth) | red |
+| 需要审批 | 会话 `pendingInteraction === 'approval'` | 警醒（方波三连） | 琥珀色 |
+| 需要回答 | 会话 `pendingInteraction === 'question'` | 轻点（双短音） | 紫色 |
+| 输出完成 | 会话 `running` 由真→假 | 叮咚（上行双音） | 绿色 |
+| 发生错误 | 运行中途出错 | 低沉（下行锯齿） | 红色 |
 
-## Settings persistence
+## 设置持久化
 
-Preferences are stored in `localStorage` under `dsh-alert-sound.v1` (volume + per-kind `{enabled, sound}`), so they survive page reloads and restarts.
+偏好保存在 `localStorage` 的 `dsh-alert-sound.v1` 键下（音量 + 每类 `{enabled, sound}`），刷新页面与重启都会保留。
 
-## Privacy
+## 隐私
 
-All processing stays in the browser. The plugin reads the **session list state** (`running` / `pendingInteraction`, and a session snapshot's turn-error / last-agent-error for failed-detection) **in memory only** to decide when to notify — it is never stored or sent anywhere. The only persisted data is your own sound/volume **settings** in `localStorage` (`dsh-alert-sound.v1`). The plugin makes **no network requests**, sends nothing to any server, uses no analytics/telemetry, and plays sounds / voices through browser-local Web Audio and Speech Synthesis.
+所有处理都在浏览器内完成。插件**只在内存中**读取会话列表状态（`running` / `pendingInteraction`，以及用于“失败”判定的会话快照的 turn-error / last-agent-error），以决定何时提醒——**不保存、不外发**。唯一持久化的数据是你自己的音色/音量**设置**（`localStorage` 的 `dsh-alert-sound.v1`）。插件**不发起任何网络请求**、不向任何服务器发送数据、不用 analytics/telemetry，声音/语音通过浏览器本地的 Web Audio 和语音合成播放。
 
-## Project layout
+## 项目结构
 
 ```
-├─ package.json        # dsh.bundle + dsh.client (web client plugin)
-├─ cordis.patch.yml    # composition patch: inserts one row (id = in-package name)
+├─ package.json        # dsh.bundle + dsh.client（web 客户端插件）
+├─ cordis.patch.yml    # 组合补丁：插入一行插件（id = 包内 name）
 └─ lib/
-   ├─ index.mjs        # host half (pure-client plugin; host row is a minimal placeholder)
-   └─ client.js        # client half (bundle module-loader format)
+   ├─ index.mjs        # 主机端（纯客户端插件，主机行为为最小占位）
+   └─ client.js        # 客户端逻辑（__ModuleLoader__ 格式）
 ```
 
-## Credits
+## 致谢（来源参考）
 
-The **detection approach** (watching the session list's `running` / `pendingInteraction` signals) follows the idea used by [dsh-session-notification](https://github.com/dingyi222666/dsh-session-notification) (BSD-3-Clause); the “task-completion chime” concept follows [dsh-chime](https://github.com/HtO404/dsh-chime) (Apache-2.0). The **bundle/client-plugin structure** follows the official dsh docs (`docs/user/develop/basic/publish.md`) and the layouts of [dsh-plugin-tts](https://github.com/1624318455/dsh-plugin-tts), [dsh-status-rotator](https://github.com/01Virex/dsh-status-rotator) and [dsh-web-ui-notify](https://github.com/omdsh-dev/dsh-web-ui-notify).
+本插件的**检测思路**（监听会话列表的 `running` / `pendingInteraction` 信号判定“审批/提问/完成”）参考了 [dsh-session-notification](https://github.com/dingyi222666/dsh-session-notification)（BSD-3-Clause）；**“任务完成提示音”概念**参考 [dsh-chime](https://github.com/HtO404/dsh-chime)（Apache-2.0）；**打包结构 / web 客户端插件形态**参考官方文档 `docs/user/develop/basic/publish.md`，以及 [dsh-plugin-tts](https://github.com/1624318455/dsh-plugin-tts)、[dsh-status-rotator](https://github.com/01Virex/dsh-status-rotator)、[dsh-web-ui-notify](https://github.com/omdsh-dev/dsh-web-ui-notify)。
 
-The **tones are original** (waveforms/frequencies designed for this plugin); no audio constants were copied from the above projects. Source is an independent implementation.
+**音色为原创设计**（波形/频率为本插件自定），未照搬任何项目的音色常量；本插件源码为独立实现。发布时请保留本致谢并遵守对应开源许可。
 
-## License
+## 许可
 
 MIT
