@@ -27,23 +27,25 @@
 
 ## 安装
 
-```sh
-dsh plugin --profile web add github:Machine-126/dsh-alert-sound
-```
-
-重启 `dsh web`，然后打开 **设置 → 提醒音** 配置。或安装本地目录：
-
-```sh
-dsh plugin --profile web add ./dsh-alert-sound
-```
-
-发布到 npm 后，也可用包名安装：
+推荐用 npm 包（预构建安装、免构建授权，市场按下载量展示）：
 
 ```sh
 dsh plugin --profile web add @machine-126/dsh-alert-sound
 ```
 
-> 本插件是纯 JavaScript、无构建步骤，因此 `github:` 安装可直接生效（无需 npm 打包或构建授权）。
+也可从 GitHub 安装（纯 JS 无构建，直接生效）：
+
+```sh
+dsh plugin --profile web add github:Machine-126/dsh-alert-sound
+```
+
+或从本地目录：
+
+```sh
+dsh plugin --profile web add ./dsh-alert-sound
+```
+
+重启 `dsh web`，然后打开 **设置 → 提醒音** 配置。
 
 ## 使用
 

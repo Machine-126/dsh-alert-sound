@@ -29,23 +29,25 @@ Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a ses
 
 ## Install
 
-```sh
-dsh plugin --profile web add github:Machine-126/dsh-alert-sound
-```
-
-Restart `dsh web`, then open **Settings → 提醒音 / Alerts** to configure. Or install a local checkout:
-
-```sh
-dsh plugin --profile web add ./dsh-alert-sound
-```
-
-Once published to npm, you can also install it by name:
+Recommended: install the npm package (prebuilt, no build-approval, and storefronts show it by download count):
 
 ```sh
 dsh plugin --profile web add @machine-126/dsh-alert-sound
 ```
 
-> This plugin is pure JavaScript and ships no build step, so a `github:` install works directly (no npm packaging or build-allowance needed).
+Or install from GitHub (pure JS, no build step, works directly):
+
+```sh
+dsh plugin --profile web add github:Machine-126/dsh-alert-sound
+```
+
+Or from a local checkout:
+
+```sh
+dsh plugin --profile web add ./dsh-alert-sound
+```
+
+Restart `dsh web`, then open **Settings → 提醒音 / Alerts** to configure.
 
 ## Usage
 
