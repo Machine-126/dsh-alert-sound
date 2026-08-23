@@ -26,7 +26,7 @@ We aim to acknowledge reports within a reasonable time and will credit you (with
 ## Recommended install (pin a commit)
 
 ```sh
-dsh plugin --profile web add github:你/仓库#<commit-sha>
+dsh plugin --profile web add github:Machine-126/dsh-alert-sound#<commit-sha>
 ```
 
 Review the source of any third-party plugin before installing with elevated allowance.

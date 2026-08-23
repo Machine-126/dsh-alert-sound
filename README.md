@@ -18,7 +18,7 @@ Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When the s
 ## Install
 
 ```sh
-dsh plugin --profile web add github:你/仓库
+dsh plugin --profile web add github:Machine-126/dsh-alert-sound
 ```
 
 Restart `dsh web`, then open **设置 → 提醒音** to configure. Or install a local checkout:

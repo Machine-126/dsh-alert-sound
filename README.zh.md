@@ -18,7 +18,7 @@
 ## 安装
 
 ```sh
-dsh plugin --profile web add github:你/仓库
+dsh plugin --profile web add github:Machine-126/dsh-alert-sound
 ```
 
 重启 `dsh web`，然后打开 **设置 → 提醒音** 配置。或安装本地目录：
