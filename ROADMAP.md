@@ -25,6 +25,7 @@
 - **数据来源**：审批/提问取自 `pendingInteraction` 的 `payload`（toolName/reason / questions 文本）；错误/完成取自会话快照（`turn-error`、`assistant-step` 文本、`lastAgentError`）。
 - **参考**：dsh-session-notification 的 `approvalText` / `questionText` / `sessionDetailOf` 已经能提取这些文本，直接借鉴。
 - **验收**：触发审批时，语音能读出具 体工具名/原因；提问读到问题文本。
+- **完善（A+）**：“完成”播报的详情目前是**原始最后回复**（可能长、被截断、信息冗余）。可改为让 **AI 生成一句简短、信息量高的摘要**专门用于播报（如“已生成三份文件”），或只读关键结论。
 
 #### B. 阻断事件“重复提醒”，直到处理
 - **需求**：审批/提问/错误会**卡住**工作。加“每 N 秒再响一次，直到用户处理”，避免一直卡着没人管。
