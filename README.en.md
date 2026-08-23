@@ -10,7 +10,7 @@ Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a ses
 
 - **Four notification kinds, four distinct tones** — needs approval / needs answer / output complete / error.
 - **Optional voice** — switch any kind to **Voice** (语音) to hear it spoken (browser speech synthesis), in the selected interface language.
-- **Settings page** (sidebar → **提醒音 / Alerts**) — master volume (0–200%), per-kind enable, sound picker (Ding-dong 叮咚 / Low 低沉 / Tap 轻点 / Alert 警醒 / Voice 语音 / Mute 静音) and a preview button.
+- **Settings page** (sidebar → **提醒音 / Alerts**) — master volume (0–200%), per-kind enable, sound picker (Ding-dong 叮咚 / Low 低沉 / Tap 轻点 / Alert 警醒 / Voice 语音 / Custom 自定义 / Mute 静音) and a preview button.
 - **Works in the background** — audio is unlocked on the first user gesture.
 - **Alerts across all sessions** by default — a multi-session user hears approval/answer/error/completion from any session; switch to **仅当前会话 (current session only)** in settings if you only care about the one you're viewing.
 - **Voice reads the detail** — with a kind set to Voice, it speaks the specific blocker (e.g. `Needs approval: write; write file D:\xxx`, `Needs answer: <question>`, `Error: <reason>`). The fixed phrase and the spoken language follow the interface-language setting; the detail text is the session's own content.
@@ -51,6 +51,8 @@ After install, open DSH **Settings → 提醒音 / Alerts** and set the sound/vo
 | Needs answer (需要回答) | session `pendingInteraction === 'question'` | Tap (轻点, quick taps) | purple |
 | Output complete (输出完成) | session `running` true→false | Ding-dong (叮咚, ascending two-note) | green |
 | Error (发生错误) | a turn errors during a run | Low (低沉, descending sawtooth) | red |
+
+There is also a 5th **Stalled/卡住** kind (experimental, **off by default** — see “Stall detection” above); its default sound is **Low (fault)**.
 
 ## Settings persistence
 
