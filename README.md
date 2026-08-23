@@ -37,6 +37,12 @@ dsh plugin --profile web add github:Machine-126/dsh-alert-sound
 dsh plugin --profile web add ./dsh-alert-sound
 ```
 
+发布到 npm 后，也可用包名安装：
+
+```sh
+dsh plugin --profile web add @machine-126/dsh-alert-sound
+```
+
 > 本插件是纯 JavaScript、无构建步骤，因此 `github:` 安装可直接生效（无需 npm 打包或构建授权）。
 
 ## 使用

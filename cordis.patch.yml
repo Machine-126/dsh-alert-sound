@@ -1,6 +1,6 @@
 # dsh-alert-sound bundle patch: one plugin row added to the host composition.
-# The row's `id` MUST match `export const name` in lib/index.mjs.
-# The row's `name` is the package name, resolved through Node after install.
+# `id` names the plugin row (kept = the plugin's exported name).
+# `name` is the package name, resolved through Node after install.
 - insert:
     - id: dsh-alert-sound
-      name: 'dsh-alert-sound'
+      name: '@machine-126/dsh-alert-sound'
