@@ -13,7 +13,7 @@ Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a ses
 - **Settings page** (sidebar → **提醒音 / Alerts**) — master volume (0–200%), per-kind enable, sound picker (Ding-dong 叮咚 / Low 低沉 / Tap 轻点 / Alert 警醒 / Voice 语音 / Mute 静音) and a preview button.
 - **Works in the background** — audio is unlocked on the first user gesture.
 - **Alerts across all sessions** by default — a multi-session user hears approval/answer/error/completion from any session; switch to **仅当前会话 (current session only)** in settings if you only care about the one you're viewing.
-- **Voice reads the detail** — with a kind set to Voice, it speaks the specific blocker (e.g. “需要审批：write；写入文件 xxx”, “需要回答：<question>”, “发生错误：<reason>”).
+- **Voice reads the detail** — with a kind set to Voice, it speaks the specific blocker (e.g. `Needs approval: write; write file D:\xxx`, `Needs answer: <question>`, `Error: <reason>`). The fixed phrase and the spoken language follow the interface-language setting; the detail text is the session's own content.
 - **Blocking events repeat** — approval/question keep re-alerting every N seconds until handled (configurable 关/10/20/30s); error repeats a few times.
 - **Localized (zh/en)** — the settings page, toast, per-kind/sound names and the spoken voice language all follow the **界面语言 / Language** setting.
 - **Browser system notification** — when enabled, an alert also raises a system notification (visible even when dsh is in the background).
