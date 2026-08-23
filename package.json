@@ -4,7 +4,7 @@
   "description": "DSH web GUI notification alerts: distinct synthesized tones or a spoken voice (zh/en) for 'needs approval', 'needs answer', 'output complete' and 'error', with per-type sound, enable, volume, repeat, browser notifications and an i18n interface-language setting.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Machine-126/dsh-alert-sound.git"
+    "url": "git+https://github.com/Machine-126/dsh-alert-sound.git"
   },
   "homepage": "https://github.com/Machine-126/dsh-alert-sound#readme",
   "bugs": {
