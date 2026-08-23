@@ -44,7 +44,11 @@ After install, open DSH settings → **提醒音** and set the sound/voice, enab
 
 ## Settings persistence
 
-Preferences are stored in `localStorage` under `dsh.alert.v1` (volume + per-kind `{enabled, sound}`), so they survive page reloads and restarts.
+Preferences are stored in `localStorage` under `dsh-alert-sound.v1` (volume + per-kind `{enabled, sound}`), so they survive page reloads and restarts.
+
+## Privacy
+
+All processing stays in the browser. The plugin reads the **session list state** (`running` / `pendingInteraction`, and a session snapshot's turn-error / last-agent-error for failed-detection) **in memory only** to decide when to notify — it is never stored or sent anywhere. The only persisted data is your own sound/volume **settings** in `localStorage` (`dsh-alert-sound.v1`). The plugin makes **no network requests**, sends nothing to any server, uses no analytics/telemetry, and plays sounds / voices through browser-local Web Audio and Speech Synthesis.
 
 ## Project layout
 

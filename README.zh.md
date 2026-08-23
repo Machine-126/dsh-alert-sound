@@ -44,7 +44,11 @@ dsh plugin --profile web add ./dsh-alert-sound
 
 ## 设置持久化
 
-偏好保存在 `localStorage` 的 `dsh.alert.v1` 键下（音量 + 每类 `{enabled, sound}`），刷新页面与重启都会保留。
+偏好保存在 `localStorage` 的 `dsh-alert-sound.v1` 键下（音量 + 每类 `{enabled, sound}`），刷新页面与重启都会保留。
+
+## 隐私
+
+所有处理都在浏览器内完成。插件**只在内存中**读取会话列表状态（`running` / `pendingInteraction`，以及用于“失败”判定的会话快照的 turn-error / last-agent-error），以决定何时提醒——**不保存、不外发**。唯一持久化的数据是你自己的音色/音量**设置**（`localStorage` 的 `dsh-alert-sound.v1`）。插件**不发起任何网络请求**、不向任何服务器发送数据、不用 analytics/telemetry，声音/语音通过浏览器本地的 Web Audio 和语音合成播放。
 
 ## 项目结构
 
