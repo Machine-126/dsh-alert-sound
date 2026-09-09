@@ -1,6 +1,6 @@
 {
   "name": "@machine-126/dsh-alert-sound",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "scripts": {
     "prepublishOnly": "node --check lib/index.mjs && node --check lib/client.js"
   },
@@ -30,6 +30,7 @@
     "README.md",
     "README.en.md",
     "ROADMAP.md",
+    "CHANGELOG.md",
     "SECURITY.md",
     "LICENSE"
   ],
