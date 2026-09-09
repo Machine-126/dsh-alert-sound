@@ -14,13 +14,19 @@
 - ✅ **H 插件 UI / 语音 i18n（zh/en + 语言偏好）**
 - ✅ **全部待办已完成**：A–I 各功能均已落地并随 v0.2 发布。
 
-## 现状（v0.2，已发布）
+## 现状（v0.3，已发布）
 - 4 类提醒：需要审批 / 需要回答 / 输出完成 / 发生错误。
 - 每类：独立启停 + 音色（叮咚/低沉/轻点/警醒/自定义/静音）+ 音量（0–200%）+ 试听。
 - 可选**语音朗读**（中/英文随界面语言，如“需要审批 / Needs approval”）。
 - 默认对所有会话提醒（可在设置切成“仅当前会话”）；后台标签页也能响（Web Audio + 语音合成）。
 - 阻断事件**重复提醒**（直到处理）；**浏览器系统通知**；**朗读输出**；**停滞检测**（实验性，默认关）；**悬浮提示开关**（默认关）；**语音语速**；**勿扰时段**；**自定义音色上传**；**界面语言**（自动/中文/English）。
 - 设置页（侧栏 → 提醒音）；设置存 localStorage（`dsh-alert-sound.v1`）。
+
+### ⚠️ v0.3 兼容性更新（DSH 0.1.2+）
+DSH 0.1.2 起把**挂起交互**从会话列表摘要/会话快照里移出：
+- `SessionSummary.pendingInteraction` → 已移除，改读 **`ctx.uiSession.pendingInteractions`**（`Map<SessionId, PendingInteraction>`，含 `kind` + 详情）。
+- `SessionSnapshot.pending` / `SessionSnapshot.chat` → 已移除；审批/提问详情改由 pending interaction 自带，错误文本仍取 `lastAgentError`。
+- **遗留**：完成时的“朗读最后回复”因 `chat` 被移走而暂时失效（需改从会话视图取，待办）。
 
 ---
 
