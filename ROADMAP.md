@@ -27,6 +27,7 @@ DSH 0.1.2 起把**挂起交互**从会话列表摘要/会话快照里移出：
 - `SessionSummary.pendingInteraction` → 已移除，改读 **`ctx.uiSession.pendingInteractions`**（`Map<SessionId, PendingInteraction>`，含 `kind` + 详情）。
 - `SessionSnapshot.pending` / `SessionSnapshot.chat` → 已移除；审批/提问详情改由 pending interaction 自带，错误文本仍取 `lastAgentError`。
 - **v0.3.1 已恢复**：“朗读最后回复”改从**会话视图**取（`uiConversation.binding(id).target('chat')` 的最后一条 assistant 文本）。注意：chat 视图需被订阅才激活——插件仅在开启“朗读输出”时为该会话激活，否则（未激活的会话）只能读到“输出完成”而无正文。
+- **v0.3.2 修复“完成/失败根本不响”**：完成检测依赖**会话列表订阅**（`running` 真→假），旧写法 `ctx.get("sessions")` + 早退会在服务未就绪时**永久空转**（订阅从未建立），而审批/提问走 `ctx.inject(["uiSession"])` 所以正常，掩盖了故障。现统一改为 **`ctx.inject(["sessions"], …)`**。通用教训：**订阅服务一律用 `ctx.inject([...])` 等待就绪，别用 `ctx.get` + 早退**。
 
 ---
 
