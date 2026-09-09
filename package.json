@@ -1,6 +1,6 @@
 {
   "name": "@machine-126/dsh-alert-sound",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "scripts": {
     "prepublishOnly": "node --check lib/index.mjs && node --check lib/client.js"
   },
