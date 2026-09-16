@@ -1,11 +1,17 @@
 {
   "name": "@machine-126/dsh-alert-sound",
-  "version": "0.3.13",
+  "version": "0.4.0",
   "scripts": {
-    "prepublishOnly": "node --check lib/index.mjs && node --check lib/client.js"
+    "test": "node --test",
+    "prepublishOnly": "node --check lib/index.mjs && node --check lib/client.js && node --test"
   },
-  "publishConfig": { "access": "public" },
-  "description": "DSH web GUI notification alerts: distinct synthesized tones or a spoken voice (zh/en) for 'needs approval', 'needs answer', 'output complete' and 'error', with per-type sound, enable, volume, repeat, browser notifications and an i18n interface-language setting.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "DSH web GUI notification alerts: distinct synthesized tones or a spoken voice (Edge TTS or browser speech, zh/en) for 'needs approval', 'needs answer', 'output complete' and 'error', with per-type sound, enable, volume, repeat, browser notifications and an i18n interface-language setting.",
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Machine-126/dsh-alert-sound.git"
@@ -58,6 +64,8 @@
     "sound",
     "chime",
     "voice",
+    "edge-tts",
+    "tts",
     "web-ui"
   ],
   "license": "MIT"
