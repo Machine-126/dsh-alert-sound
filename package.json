@@ -4,7 +4,10 @@
   "scripts": {
     "prepublishOnly": "node --check lib/index.mjs && node --check lib/client.js"
   },
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "description": "DSH web GUI notification alerts: distinct synthesized tones or a spoken voice (zh/en) for 'needs approval', 'needs answer', 'output complete' and 'error', with per-type sound, enable, volume, repeat, browser notifications and an i18n interface-language setting.",
   "repository": {
     "type": "git",
