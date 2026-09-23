@@ -1,0 +1,47 @@
+name: Stage npm release
+
+# 触发：推送 v* 形式的 tag。
+# 注意：这个工作流只把包"提交待审"（npm stage publish），不会直接发布。
+# 维护者需要用 2FA 手动批准后，版本才会真正公开。
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write # 必须：允许 GitHub 为本次运行签发 OIDC 令牌，npm 靠它识别信任关系
+  contents: read
+
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # 发布构建永远不要用缓存
+
+      # staged publishing 要求 npm CLI >= 11.15.0。
+      # Node 24 自带的 npm 不保证满足（本机 Node 24.16.0 自带的就是 11.13.0），
+      # 所以这里显式升到 11.x 的最新版，避免依赖 runner 的镜像版本。
+      - name: 确保 npm CLI >= 11.15.0
+        run: |
+          npm install -g 'npm@^11.15.0'
+          npm --version
+
+      # 防止"忘了升版本就打 tag"——否则只会得到一个语焉不详的冲突报错。
+      - name: 校验 tag 与 package.json 版本一致
+        run: |
+          EXPECTED="v$(node -p "require('./package.json').version")"
+          if [ "$EXPECTED" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME 与 package.json 版本 $EXPECTED 不一致，拒绝提交"
+            exit 1
+          fi
+
+      # 只提交到暂存区，不发布。npm 端已配置该 trusted publisher 仅有 stage 权限，
+      # 直接 npm publish 会被 registry 拒绝。
+      - name: 提交到暂存区
+        run: npm stage publish
