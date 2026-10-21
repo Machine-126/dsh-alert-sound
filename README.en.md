@@ -1,94 +1,152 @@
 # dsh-alert-sound
 
-English | [中文](./README.md)
+<div align="center">
+  <b>Know when DeepSeek Harness needs you: distinct tones or spoken voice (zh/en) for approval, question, completion and error — no need to watch the screen.</b><br /><br />
+  <a href="https://www.npmjs.com/package/@machine-126/dsh-alert-sound"><img alt="npm version" src="https://img.shields.io/npm/v/@machine-126/dsh-alert-sound" /></a>
+  <a href="https://www.npmjs.com/package/@machine-126/dsh-alert-sound"><img alt="npm downloads" src="https://img.shields.io/npm/dm/@machine-126/dsh-alert-sound" /></a>
+  <a href="https://github.com/Machine-126/dsh-alert-sound/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Machine-126/dsh-alert-sound" /></a>
+  <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
+  <a href="https://www.npmjs.com/package/@deepseek-ai/dsh?activeTab=versions"><img alt="Supported DSH: 0.2.0-rc.2+" src="https://img.shields.io/badge/DSH-0.2.0--rc.2%2B-4d6bfe" /></a>
+  <br /><br />
+  <a href="./README.md">中文</a> · <a href="./README.en.md"><b>English</b></a>
+</div>
 
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+## Why this exists
 
-Notification sound alerts for the **DeepSeek Harness (dsh) web GUI**. When a session needs an **approval**, needs your **answer**, finishes a turn, or hits an **error**, the plugin plays a distinct synthesized tone and shows a toast — optionally with a **spoken voice** utterance. Each kind has its own selectable sound/voice, enable toggle and a master volume, configured in a dedicated Settings page. The UI and the spoken voice support both **Chinese and English** (switch in settings).
+A DSH task often runs for minutes. The hard part is not the wait — it is that **the run has already stopped and is waiting for you while you are somewhere else**: an approval sits in a dialog, a question hangs unanswered, and the whole chain just stands still.
 
-> **Note:** the plugin shipped Chinese-first; its on-screen labels (sound names, notification kinds, settings page) are localized. Use the **界面语言 / Language** picker in settings to switch between **自动 (auto) / 中文 / English** — English is used throughout this README for reference.
+This plugin turns "it's your turn" into **sound**: a different tone per kind, or a spoken sentence naming what is actually blocking. Go do something else; come back when you hear it.
 
-> **About this project**: requirements and acceptance testing by the repo owner [@Machine-126](https://github.com/Machine-126); the code was developed end-to-end by **DeepSeek Harness** (an AI coding agent). Issues are welcome at [the issue tracker](https://github.com/Machine-126/dsh-alert-sound/issues).
+## Highlights
 
-- **Five notification kinds, distinct tones** — needs approval / needs answer / output complete / error, plus an experimental **Stalled** kind (off by default).
-- **Optional voice** — switch any kind to **Voice** (语音) to hear it spoken (browser speech synthesis), in the selected interface language. If speech synthesis fails to start, the plugin falls back to that kind's tone, so **an alert is never silent**.
-- **Settings page** (sidebar → **提醒音 / Alerts**) — master volume (0–200%), per-kind enable, sound picker (Ding-dong 叮咚 / Low 低沉 / Tap 轻点 / Alert 警醒 / Voice 语音 / Custom 自定义 / Mute 静音), a preview button, and **Restore defaults** (with a confirmation).
-- **Works in the background** — audio is unlocked on the first user gesture.
-- **Alerts across all sessions** by default — a multi-session user hears approval/answer/error/completion from any session; switch to **仅当前会话 (current session only)** in settings if you only care about the one you're viewing.
-- **Voice reads the detail** — with a kind set to Voice, it speaks the specific blocker (e.g. `Needs approval: write; write file D:\xxx`, `Needs answer: <question>`, `Error: <reason>`). The fixed phrase and the spoken language follow the interface-language setting; the detail text is the session's own content.
-- **Blocking events repeat** — approval/question keep re-alerting every N seconds until handled (configurable 关/10/20/30s); error repeats a few times.
-- **Localized (zh/en)** — the settings page, toast, per-kind/sound names and the spoken voice language all follow the **界面语言 / Language** setting.
-- **Browser system notification** — when enabled, an alert also raises a system notification (visible even when dsh is in the background).
-- **Stall detection (experimental, off by default)** — alerts when an agent shows no progress for a while; currently `updatedAt`-based and **not yet reliable**, so it is disabled by default. Note: the 5th **Stalled** alert only fires when this is on.
-- Settings persist to `localStorage`, surviving refresh/restart; a one-click restore-to-defaults is available.
-
-## Requirements
-
-- **DeepSeek Harness `0.2.0-rc.2` or newer** (`dsh web`) — approval/question detection relies on rc2's `uiSession.sessionStatus` (the `uiSession.pendingInteractions` observable introduced in 0.1.2 was withdrawn from the public face); on older versions only the complete/error alerts work.
-- A browser with Web Audio (for tones); Web Speech for voice is optional and degrades to a tone
+- **Five kinds, distinct tones** — needs approval / needs answer / output complete / error, plus an experimental **Stalled**.
+- **Speaks the detail** — tool name and reason for an approval, the question text for a question; "output complete" can read out the final reply (with Read-aloud on).
+- **Works in the background** — switching tabs or minimising the window keeps the alerts coming.
+- **Never silently fails** — if browser speech synthesis drops the utterance, that kind's tone plays instead.
+- **Repeats until handled** — approval and question re-alert at your chosen interval.
+- **No network at all** — not a single request; everything happens in the browser.
 
 ## Install
 
-Recommended: install the npm package (prebuilt, no build-approval, and storefronts show it by download count):
+npm (prebuilt, no build-script approval needed):
 
 ```sh
 dsh plugin --profile web add @machine-126/dsh-alert-sound
 ```
 
-Or install from GitHub (pure JS, no build step, works directly):
+> Replace `web` with your own profile name — **the desktop app usually uses `desktop`**. Run `dsh plugin --profile <name> list` first if you are unsure.
+
+From GitHub (plain JS, no build step):
 
 ```sh
 dsh plugin --profile web add github:Machine-126/dsh-alert-sound
 ```
 
-Or from a local checkout (**the path must be absolute**; rc2 installs it as a `link:`, so edits need only a page refresh):
+From a local checkout (**the path must be absolute**; it installs as a `link:`):
 
 ```sh
 dsh plugin --profile web add D:\path\to\dsh-alert-sound
 ```
 
-Restart `dsh web`, then open **Settings → 提醒音 / Alerts** to configure.
+After installing, **restart dsh** (the desktop app reloads a newly installed plugin only on restart), then open **Settings → 提醒音 / Alerts** to configure it.
 
-## Usage
+To hack on it: all the logic lives in `lib/client.js`, there is **no build step**, and a page refresh picks up your changes (`prepublishOnly` runs `node --check` before publishing).
 
-After install, open DSH **Settings → 提醒音 / Alerts** and set the sound/voice, enable switch and volume per kind; the **界面语言 / Language** picker at the top switches between **自动 (auto) / 中文 / English**, and **Restore defaults** at the bottom resets everything (with a confirmation). Notifications fire automatically; nothing else to do.
+## The five kinds
 
-## Notification kinds & default sounds
-
-| Kind | Trigger | Default sound | Toast |
+| Kind | When it fires | Default sound | Dot |
 |---|---|---|---|
-| Needs approval (需要审批) | `uiSession.sessionStatus` has `pendingInteraction.kind === 'approval'` for the session | Alert (警醒, square triple) | amber |
-| Needs answer (需要回答) | same source, `kind === 'question'` (incl. plan-review) | Tap (轻点, quick taps) | purple |
-| Output complete (输出完成) | the session's `running` goes true→false (authoritative source: `sessionStatus.running`) | Ding-dong (叮咚, ascending two-note) | green |
-| Error (发生错误) | a turn errors during a run (`lastAgentError` changes) | Low (低沉, descending sawtooth) | red |
+| Needs approval | the agent wants to run something sensitive and waits for your "allow" | Alert (square triple) | amber |
+| Needs answer | the agent asked you a question and waits for a reply | Tap (quick double) | purple |
+| Output complete | a turn finished | Ding-dong (rising pair) | green |
+| Error | the turn failed | Low (falling sawtooth) | red |
+| Stalled (experimental) | with "Stall detection" on, no progress for a while | Low | orange |
 
-There is also a 5th **Stalled/卡住** kind (experimental, **off by default** — enable “Stall detection” first); its default sound is **Low (fault)**.
+> What it watches: `running` and the pending interaction's kind from `uiSession.sessionStatus`, plus the session snapshot's `lastAgentError`.
 
-> **About the Voice sound**: approval / question speak the pending detail (tool name, reason, question text); the **“Output complete” reply body (the last assistant message) requires Read-aloud to be on** — with it off, only the kind name is spoken. The body is capped at 400 characters.
+> The fifth kind is off by default: **it only fires once "Stall detection" is enabled**. It judges by the session's update timestamp, so it is a heuristic.
 
-## Settings persistence
+Available sounds: Ding-dong / Low / Tap / Alert / Voice / Custom / Mute.
 
-Preferences are stored in `localStorage` under `dsh-alert-sound.v1` (master volume + per-kind `{enabled, sound}` + scope/repeat/system-notification/read-aloud/stall-detection/toast/voice-rate/do-not-disturb/interface-language); uploaded custom sounds live under `dsh-alert-sound.custom.v1`. They survive page reloads and restarts.
+> **About the "Voice" option**: approval and question speak the pending detail (tool name, reason, question text); **"Output complete" needs Read-aloud as well**, otherwise only the kind name is spoken. The body is capped at 400 characters.
+
+## Settings reference
+
+| Option | What it does | Default |
+|---|---|---|
+| Master volume | 0–200% | 70% |
+| Scope | all sessions / current session only | all sessions |
+| Repeat | off / 10 / 20 / 30 s, until handled | 20 s |
+| System notification | browser notification (visible in the background) | off |
+| Read-aloud | whether "output complete" speaks the final reply (sound must be Voice) | off |
+| Stall detection | experimental; enables the fifth kind | off |
+| Floating banner | top-of-screen banner, gone after 3.6 s | off |
+| Voice rate | slow / normal / fast | normal |
+| Do-not-disturb | start and end hour; nothing plays in between | off |
+| Language | auto / 中文 / English | auto |
+
+**Restore defaults** sits at the bottom (with a confirmation).
+
+## Compatibility
+
+| DSH version | Behaviour |
+|---|---|
+| `0.2.1-rc.2` | ✅ everything (the version this build was verified on) |
+| `0.2.0-rc.2` | ✅ everything |
+| older | ⚠️ completion and error only; approval and question stay silent |
+
+Web Audio is required for the tones; voice uses the browser's speech synthesis and degrades to a tone when unavailable.
+
+## FAQ
+
+**Installed it, but nothing plays at all.**
+Browsers only start audio after a user gesture — **click anywhere on the page** once. Then check that the kind's sound is not Mute, the master volume is not 0, and Do-not-disturb is off.
+
+**I only hear the tail of the tone.**
+Since 0.3.13 every playback is preceded by a 200 ms warm-up that wakes the audio device. If it still happens, please open an issue with your browser version.
+
+**Approval and question never fire, but completion does.**
+That means an older DSH: approval/question detection relies on `uiSession.sessionStatus`, which needs **DSH ≥ 0.2.0-rc.2**.
+
+**Voice says "output complete" but no reply body.**
+You need both the **Voice** sound and the **Read-aloud** switch on — and only the completion kind reads a body. A **background session** (one no longer shown in the main area) has no body to read: the plugin only sees the text once that session's chat view is open, so it falls back to the fixed phrase.
+
+**The floating banner never shows.**
+It is off by default; turn on "Floating banner" in settings.
+
+**The whole UI went blank after installing.**
+In a rare version mismatch the client can fail to boot. Roll back:
+
+```sh
+dsh plugin --profile <your-profile> remove @machine-126/dsh-alert-sound
+```
 
 ## Privacy
 
-All processing stays in the browser. The plugin reads, **in memory only**: `uiSession.sessionStatus` (`running`, the pending kind plus tool name, reason and question text); the session list row's `updatedAt` and `retainedBy` (to decide the “current session”; `running` only as a fallback); the session snapshot's `lastAgentError` (failed detection); and — **only when “Read-aloud” is on** — the last assistant reply text from the conversation view (for speaking it). None of it is stored or sent anywhere. The only persisted data is your own **settings** (`localStorage` `dsh-alert-sound.v1`; custom sounds in `dsh-alert-sound.custom.v1`). The plugin makes **no network requests**, sends nothing to any server, uses no analytics/telemetry, and plays sounds / voices through browser-local Web Audio and Speech Synthesis.
+Everything runs in the browser: **no network requests**, no analytics or telemetry. It reads four things, in memory only — the session's running state and pending interaction (including tool name / reason / question text), the session list's `updatedAt` and `retainedBy` (to decide "current session"), the session snapshot's `lastAgentError` (to detect a failure), and **only while Read-aloud is on** the text of the last assistant reply.
 
-## Project layout
+None of it is stored or sent anywhere; the only persisted data is your own settings (`localStorage` key `dsh-alert-sound.v1`, plus uploaded custom sounds under `dsh-alert-sound.custom.v1`).
 
-```
-├─ package.json        # dsh.bundle + dsh.client (web client plugin)
-├─ cordis.patch.yml    # composition patch: inserts one row (id = in-package name)
-└─ lib/
-   ├─ index.mjs        # host half (pure-client plugin; host row is a minimal placeholder)
-   └─ client.js        # client half (bundle module-loader format)
-```
+## Roadmap
 
-## Credits
+- Done and planned: **[ROADMAP.md](./ROADMAP.md)**
+- Release history: **[CHANGELOG_EN.md](./CHANGELOG_EN.md)**
 
-The **detection approach** (watching `uiSession.sessionStatus`'s `running` and `pendingInteraction`) follows the idea used by [dsh-session-notification](https://github.com/dingyi222666/dsh-session-notification) (BSD-3-Clause); the “task-completion chime” concept follows [dsh-chime](https://github.com/HtO404/dsh-chime) (Apache-2.0). The **bundle/client-plugin structure** follows the official dsh docs (`docs/user/develop/basic/publish.md`) and the layouts of [dsh-plugin-tts](https://github.com/1624318455/dsh-plugin-tts), [dsh-status-rotator](https://github.com/01Virex/dsh-status-rotator) and [dsh-web-ui-notify](https://github.com/omdsh-dev/dsh-web-ui-notify).
+## Acknowledgements
 
-The **tones are original** (waveforms/frequencies designed for this plugin); no audio constants were copied from the above projects. Source is an independent implementation.
+The ideas and the shape of this plugin follow these projects; **the code is an independent implementation and reuses none of their source**:
+
+- Detection approach (`running` and the pending interaction → approval / question / completion): [dsh-session-notification](https://github.com/dingyi222666/dsh-session-notification) (BSD-3-Clause)
+- The "task finished" chime idea: [dsh-chime](https://github.com/HtO404/dsh-chime) (Apache-2.0)
+- Packaging and web-client plugin form: the official `docs/user/develop/basic/publish.md`, plus [dsh-plugin-tts](https://github.com/1624318455/dsh-plugin-tts), [dsh-status-rotator](https://github.com/01Virex/dsh-status-rotator) and [dsh-web-ui-notify](https://github.com/omdsh-dev/dsh-web-ui-notify)
+
+The tones are original (waveforms and frequencies are this plugin's own). Please keep this acknowledgement.
+
+## About this project
+
+Requirements and acceptance testing by [@Machine-126](https://github.com/Machine-126); the code was developed end-to-end by **DeepSeek Harness** (an AI coding agent).
+
+A single-maintainer side project, so replies may be slow; bugs and feature requests are welcome in [the issue tracker](https://github.com/Machine-126/dsh-alert-sound/issues).
 
 ## License
 
