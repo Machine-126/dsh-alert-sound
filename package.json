@@ -9,6 +9,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "description": "DSH web GUI notification alerts: distinct synthesized tones or a spoken voice (zh/en) for 'needs approval', 'needs answer', 'output complete', 'error' and an experimental 'stalled' — with per-kind enable/sound/volume/preview, repeat-until-answered, do-not-disturb hours, browser system notifications, read-aloud of the final reply, uploaded custom sounds and an i18n (zh/en) settings page.",
+  "author": "8bitSky <110947785+Machine-126@users.noreply.github.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Machine-126/dsh-alert-sound.git"
