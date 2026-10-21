@@ -2,9 +2,9 @@
 
 [中文](./CHANGELOG.md) | English
 
-Versions follow [Semantic Versioning](https://semver.org/). The `0.3.x` run (2026-09-08) focused on **DSH 0.1.2+ compatibility** and **alert reliability**; `0.3.15` (2026-10-06) moved the plugin onto **DSH 0.2.0-rc.2**; `0.3.16` (2026-10-06) fixed the rc2 regression where "output complete" stopped reading the reply body.
+Versions follow [Semantic Versioning](https://semver.org/). The `0.3.x` run (2026-09-08) focused on **DSH 0.1.2+ compatibility** and **alert reliability**; `0.3.15` (2026-10-06) moved the plugin onto **DSH 0.2.0-rc.2**; `0.3.16` (2026-10-06) fixed the rc2 regression where "output complete" stopped reading the reply body; `0.3.17` (2026-10-21) rebuilt the settings page and the banner on the Host's own controls and theme.
 
-## [Unreleased]
+## [0.3.17]
 
 ### Improved
 - **The settings page and the floating banner now use the Host's own UI and theme** (from PR [#2](https://github.com/Machine-126/dsh-alert-sound/pull/2), thanks [@rngfbbbffhjgggd-commits](https://github.com/rngfbbbffhjgggd-commits)): the settings page follows the Host's stacked-field grammar (label above, control below, 0.5px separators between fields), toggles and buttons are the `ui-primitives` `Switch` / `Button`, and colours and radii come from `--dsw-*` theme tokens — so light, dark and high-contrast themes follow the shell instead of a hardcoded grey.
